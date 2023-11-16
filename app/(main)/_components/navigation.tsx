@@ -1,7 +1,7 @@
 "use client";
 
 import { ElementRef, useEffect, useRef, useState } from "react";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import {
   ChevronsLeft,
   MenuIcon,
@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/popover";
 
 export const Navigation = () => {
+  const router = useRouter();
   const search = useSearch();
   const settings = useSettings();
   const pathname = usePathname();
@@ -122,7 +123,9 @@ export const Navigation = () => {
   };
 
   const handleCreate = () => {
-    const promise = create({ title: "Untitled" });
+    const promise = create({ title: "Untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
+    );
 
     toast.promise(promise, {
       loading: "Creating a new note...",
