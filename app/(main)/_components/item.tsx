@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useMutation } from "convex/react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   ChevronDown,
   ChevronRight,
@@ -56,6 +56,7 @@ export const Item = ({
   const router = useRouter();
   const create = useMutation(api.documents.create);
   const archive = useMutation(api.documents.archive);
+  const params = useParams();
 
   const handleExpand = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -94,7 +95,9 @@ export const Item = ({
       error: "Failed to archive note",
     });
 
-    router.push("/documents");
+    if (params.documentId === id) {
+      router.push("/documents");
+    }
   };
 
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
