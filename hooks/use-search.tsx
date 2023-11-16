@@ -4,7 +4,7 @@ type SearchStore = {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
-  toggle: () => Void;
+  toggle: () => void;
 };
 
 export const useSearch = create<SearchStore>((set, get) => ({
